@@ -1,74 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recursion</title>
 </head>
+
 <body>
-    <pre id="result"/>
+    <pre id="result" />
 </body>
+
 </html>
 
 <script>
-
-    const studentsAverageScore = (students) => {
-        validate(students);
-
-        return students.map((student) => {
-            const {name, scores} = student;
-            if(!scores.length){
-                throw new Error(`Student named ${name} has an empty "scores" array`)
-            }
-
-            if (!scores.every((score) => typeof score === "number")) {
-                throw new Error(`Student named ${name} has a non-numeric score in the "scores" array`);
-            }
-
-            const averageScore = calculateAverage(scores);
-            return {
-                name,
-                averageScore
-            }
-        });
-    }
-
-    function validate(input){
-        if(!Array.isArray(input)){
-            throw new Error("Input is not a valid array");
+    function flattenArray(arr) {
+        if (arr.length === 0) {
+            return [];
         }
 
-        input.forEach((student, index) => {
-            if(!student?.name){
-                throw new Error(`Student at index ${index} does not have a name property`);
-            }
+        const first = arr[0];
+        const rest = arr.slice(1);
 
-            if(!Array.isArray(student?.scores)) {
-                throw new Error(`Student named ${student?.name} at index ${index} has no "scores" Array`)
-            }
-        });
-
-    }
-
-    function calculateAverage(scores){
-        return scores.reduce((total, score) => total + score, 0) / scores.length;
-    }
-    const result = studentsAverageScore([
-        {
-            name: "John Doe",
-            scores: [80, 90, 70]
-        },
-        {
-            name: "Jane Doe",
-            scores: [70, 80, 90]
-        },
-        {
-            name: "Bob Smith",
-            scores: [60, 70, 80]
+        if (Array.isArray(first)) {
+            return flattenArray(first).concat(flattenArray(rest));
+        } else {
+            return [first].concat(flattenArray(rest));
         }
-    ]);
+    }
 
-    document.getElementById("result").innerText=JSON.stringify(result,undefined , 2);
+    const result = flattenArray([1, [2, [3, 4], 5], 6]);
 
+    document.getElementById("result").innerText = JSON.stringify(result, undefined, 2);
 </script>
