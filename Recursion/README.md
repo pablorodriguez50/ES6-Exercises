@@ -4,8 +4,11 @@ Write a function flattenArray(arr) that takes a nested array of integers as an a
 
 # Example
 usage
-console.log(flattenArray([1, [2, [3, 4], 5], 6]));
-Output: [1, 2, 3, 4, 5, 6]
 
-console.log(flattenArray([]));
-Output: []
+`console.log(flattenArray([1, [2, [3, 4], 5], 6]));`
+
+Output: `[1, 2, 3, 4, 5, 6]`
+
+`console.log(flattenArray([]));`
+
+Output: `[]`
